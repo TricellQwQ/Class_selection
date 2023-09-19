@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="/">ABOBA</a>
+            <p>
+                <a class="btn btn-primary" href="/application">Подать заявку</a>
+            </p>
+        </nav>
+    </header>
+    <main role="main" class="container">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
