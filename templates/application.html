@@ -3,6 +3,7 @@
 {% block content %}
 <h1>Подать заявку</h1>
 <form action="" method="post">
+    {{ form.csrf_token }}
     <p>
         {{ form.name.label }}<br>
         {{ form.name(class="form.control") }}<br>
@@ -23,7 +24,7 @@
     </p>
     <p>
         {{ form.exams.label }}<br>
-        {{ form.exams(class="form.control") }}<br>
+        {{ form.exams }}<br>
         {% for error in form.exams.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}

@@ -1,10 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, RadioField, SubmitField
+from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
+from wtforms_alchemy import QuerySelectMultipleField
 
 
 class ApplicationFrom(FlaskForm):
     name = StringField("Имя", validators=[DataRequired()])
     surname = StringField("Фамилия", validators=[DataRequired()])
-    exams = RadioField("Экзамены", choices=["Русский язык", "Математика", "Физика", "Химия", "Биология", "Литература", "География", "История", "Информатика", "Обществознание", "Английский язык", "Французский язык", "Немецкий язык", "Испанский язык"])
+    exams = QuerySelectMultipleField("Экзамены", validators=[DataRequired()])
     submit = SubmitField("Отправить")
