@@ -23,8 +23,17 @@
         {% endfor %}
     </p>
     <p>
+        {{ form.email.label }}<br>
+        {{ form.email(class="form.control") }}<br>
+        {% for error in form.email.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
         {{ form.exams.label }}<br>
-        {{ form.exams }}<br>
+        {{ form.exams(rows=3, multiple=True) }}<br>
         {% for error in form.exams.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
