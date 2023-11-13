@@ -1,8 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
 from forms.application import ApplicationFrom
-from sqlalchemy import select
 
 app = Flask(__name__)
 
@@ -59,6 +58,19 @@ def application():
         return render_template("base.html")
 
     return render_template("application.html", form=form, message="")
+
+
+@app.route("/confirmation", methods=["GET", "POST"])
+def confirmarion():
+    form = ConfirmationForm()
+
+    if form.validate_on_submit():
+        email = form.email.data
+        password = form.password.data
+
+        for teacher in db.session.query(Teacher):
+            if teacher.email == email and teacher.password == password:
+
 
 
 if __name__ == '__main__':
