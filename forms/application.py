@@ -8,7 +8,7 @@ class SelectMultipleFieldWithCheckboxes(SelectMultipleField):
     option_widget = widgets.CheckboxInput()
 
 
-class ApplicationFrom(FlaskForm):
+class ApplicationForm(FlaskForm):
     name = StringField("Имя", validators=[DataRequired()])
     surname = StringField('Фамилия', validators=[DataRequired()])
     email = EmailField("Электронная почта", validators=[DataRequired()])

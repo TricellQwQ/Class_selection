@@ -1,7 +1,8 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import CSRFProtect
-from forms.application import ApplicationFrom
+from forms.application import ApplicationForm
+from forms.confirmation import ConfirmationForm
 
 app = Flask(__name__)
 
@@ -27,6 +28,16 @@ class User(db.Model):
         self.exams = ";".join(exams)
 
 
+class Teacher(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100))
+    password = db.Column(db.String(100))
+
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
+
+
 with app.app_context():
     db.create_all()
 
@@ -38,7 +49,7 @@ def index():
 
 @app.route("/application", methods=["GET", "POST"])
 def application():
-    form = ApplicationFrom()
+    form = ApplicationForm()
 
     if form.validate_on_submit():
         name = form.name.data
@@ -61,16 +72,21 @@ def application():
 
 
 @app.route("/confirmation", methods=["GET", "POST"])
-def confirmarion():
+def confirmation():
     form = ConfirmationForm()
 
     if form.validate_on_submit():
         email = form.email.data
         password = form.password.data
 
-        for teacher in db.session.query(Teacher):
-            if teacher.email == email and teacher.password == password:
+        for teacher in db.session.query(Teacher.password).filter(Teacher.email==email):
+            if teacher.email == email and teacher.password != password:
+                return render_template("confirmation.html", form=form, message="Неверный пароль")
+            else:
+                return render_template("base.html")
+        return render_template("confirmation.html", form=form, message="Данная почта не зарегистрирована")
 
+    return render_template("confirmation.html", form=form, message="")
 
 
 if __name__ == '__main__':
