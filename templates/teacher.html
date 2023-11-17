@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Скачать таблицу</h1>
+<h1>Добавить учителя</h1>
 <form action="" method="post">
     {{ form.csrf_token }}
     <p>
@@ -22,8 +22,25 @@
             </p>
         {% endfor %}
     </p>
+    <p>
+        {{ form.password_c.label }}<br>
+        {{ form.password_c(class="form.control") }}<br>
+        {% for error in form.password_c.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.safe_code.label }}<br>
+        {{ form.safe_code(class="form.control") }}<br>
+        {% for error in form.safe_code.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}
-    <a class="btn" href="/teacher">Добавить учителя</a>
 </form>
 {% endblock %}
